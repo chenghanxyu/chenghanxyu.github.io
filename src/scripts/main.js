@@ -14,20 +14,29 @@ if (url.indexOf('?') != -1) {
         //如果資料名稱為id的話那就把他取出來
         if (ary[i].split('=')[0] == 'stream') {
             source = ary[i].split('=')[1];
-            console.log(source);
         }
 
         if (ary[i].split('=')[0] == 'title') {
             title = ary[i].split('=')[1];
-            console.log(decodeURI(title));
-            document.querySelector('h1').innerText = '現正播出：' + decodeURI(title);
+            document.querySelector('h2.radio-title').innerText = decodeURI(title);
         }
 
         if (ary[i].split('=')[0] == 'format') {
             format = ary[i].split('=')[1];
         }
+
+        if (ary[i].split('=')[0] == 'img') {
+            img = ary[i].split('=')[1];
+            document.querySelector('#radio-img').setAttribute('src', 'https://diantai.app' + img);
+        }
+
+        if (ary[i].split('=')[0] == 'frequency') {
+            frequency = ary[i].split('=')[1];
+            document.querySelector('.fm').innerText = decodeURI(frequency);
+        }
     }
 }
+
 
 const video = document.querySelector("#player"); // 定義影片、音源播放位置
 // 呼叫出 plyr 播放器
@@ -58,4 +67,36 @@ if (format == 'hls') {
     });
 } else {
     video.src = source;
+
+}
+
+function toPlay() {
+    document.querySelector('.pause').classList.remove('btn-hidden');
+    document.querySelector('.play').classList.add('btn-hidden');
+    document.querySelector('.radio img').classList.add('plus-img');
+    player.play();
+}
+
+function toPause() {
+    AudioScheduledSourceNode.stop;    //  讓聲音停止
+    player.pause();
+    //  處理播放器圖示
+    document.querySelector('.pause').classList.add('btn-hidden');
+    document.querySelector('.play').classList.remove('btn-hidden');
+    document.querySelector('.radio img').classList.remove('plus-img');
+}
+
+// Muted 靜音
+function toMuted() {
+    player.muted = true;
+    //  處理圖示
+    document.querySelector('.volume_off').classList.add('btn-hidden');
+    document.querySelector('.volume_up').classList.remove('btn-hidden');
+}
+
+// No Muted 關閉靜音
+function tonoMuted() {
+    player.muted = false;
+    document.querySelector('.volume_off').classList.remove('btn-hidden');
+    document.querySelector('.volume_up').classList.add('btn-hidden');
 }
