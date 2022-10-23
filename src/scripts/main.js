@@ -37,7 +37,6 @@ if (url.indexOf('?') != -1) {
     }
 }
 
-
 const video = document.querySelector("#player"); // 定義影片、音源播放位置
 // 呼叫出 plyr 播放器
 const player = new Plyr(video, {
@@ -71,6 +70,14 @@ if (format == 'hls') {
 }
 
 function toPlay() {
+    navigator.mediaSession.metadata = new MediaMetadata({
+        title: decodeURI(title),
+        artist: 'DianTai 廣播線上聽',
+        album: 'DianTai 廣播線上聽',
+        artwork: [
+            { src: 'https://diantai.app' + img, sizes: '300x300', type: 'image/jpeg' },
+        ]
+    });
     document.querySelector('.pause').classList.remove('btn-hidden');
     document.querySelector('.play').classList.add('btn-hidden');
     document.querySelector('.radio img').classList.add('plus-img');
