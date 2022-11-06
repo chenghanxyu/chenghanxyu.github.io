@@ -69,6 +69,18 @@ if (format == 'hls') {
 
 }
 
+function openWindow(item) {
+    if (item === 'Countdown') {
+        $('#forCountdown').removeClass('hidden');
+    }
+}
+
+function closeWindow(item) {
+    if (item === 'Countdown') {
+        $('#forCountdown').addClass('hidden');
+    }
+}
+
 function toPlay() {
     navigator.mediaSession.metadata = new MediaMetadata({
         title: decodeURI(title),
@@ -106,4 +118,19 @@ function tonoMuted() {
     player.muted = false;
     document.querySelector('.volume_off').classList.remove('btn-hidden');
     document.querySelector('.volume_up').classList.add('btn-hidden');
+}
+
+// 睡眠定時器
+function timeToSleep() {
+    const times = $('#forCountdown > ul > li > input:checked').val();
+    const dayToset = Date.now() + Number(times);
+    $('#forCountdown p').countdown(dayToset)
+        .on('update.countdown', function (event) {
+            var format = '%M 分 %S 秒';
+            $(this).html('廣播將於 ' + event.strftime(format) + ' 後停止');
+        })
+        .on('finish.countdown', function (event) {
+            $(this).html('請選擇時間');
+            toPause();
+        });
 }
