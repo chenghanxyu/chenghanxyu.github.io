@@ -27,7 +27,7 @@ if (url.indexOf('?') != -1) {
 
         if (ary[i].split('=')[0] == 'img') {
             img = ary[i].split('=')[1];
-            document.querySelector('#radio-img').setAttribute('src', 'https://diantai.app' + img);
+            document.querySelector('#radio-img').setAttribute('src', 'https://diantai.yuslife.cc' + img);
         }
 
         if (ary[i].split('=')[0] == 'frequency') {
@@ -87,7 +87,7 @@ function toPlay() {
         artist: 'DianTai 廣播線上聽',
         album: 'DianTai 廣播線上聽',
         artwork: [
-            { src: 'https://diantai.app' + img, sizes: '300x300', type: 'image/jpeg' },
+            { src: 'https://diantai.yuslife.cc' + img, sizes: '300x300', type: 'image/jpeg' },
         ]
     });
     document.querySelector('.pause').classList.remove('btn-hidden');
